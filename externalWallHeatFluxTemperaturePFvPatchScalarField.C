@@ -74,7 +74,8 @@ externalWallHeatFluxTemperaturePFvPatchScalarField
     QrRelaxation_(1),
     QrName_("undefined-Qr"),
     thicknessLayers_(),
-    kappaLayers_()
+    kappaLayers_(),
+    hp_()
 {
     refValue() = 0.0;
     refGrad() = 0.0;
@@ -101,7 +102,8 @@ externalWallHeatFluxTemperaturePFvPatchScalarField
     QrRelaxation_(ptf.QrRelaxation_),
     QrName_(ptf.QrName_),
     thicknessLayers_(ptf.thicknessLayers_),
-    kappaLayers_(ptf.kappaLayers_)
+    kappaLayers_(ptf.kappaLayers_),
+    hp_(ptf.hp_().clone().ptr())
 {}
 
 
@@ -123,7 +125,8 @@ externalWallHeatFluxTemperaturePFvPatchScalarField
     QrRelaxation_(dict.lookupOrDefault<scalar>("relaxation", 1)),
     QrName_(dict.lookupOrDefault<word>("Qr", "none")),
     thicknessLayers_(),
-    kappaLayers_()
+    kappaLayers_(),
+    hp_(DataEntry<scalar>::New("hp", dict))
 {
     if (dict.found("q") && !dict.found("h") && !dict.found("Ta"))
     {
@@ -200,7 +203,8 @@ externalWallHeatFluxTemperaturePFvPatchScalarField
     QrRelaxation_(tppsf.QrRelaxation_),
     QrName_(tppsf.QrName_),
     thicknessLayers_(tppsf.thicknessLayers_),
-    kappaLayers_(tppsf.kappaLayers_)
+    kappaLayers_(tppsf.kappaLayers_),
+    hp_(tppsf.hp_().clone().ptr())
 {}
 
 
@@ -221,7 +225,8 @@ externalWallHeatFluxTemperaturePFvPatchScalarField
     QrRelaxation_(tppsf.QrRelaxation_),
     QrName_(tppsf.QrName_),
     thicknessLayers_(tppsf.thicknessLayers_),
-    kappaLayers_(tppsf.kappaLayers_)
+    kappaLayers_(tppsf.kappaLayers_),
+    hp_(tppsf.hp_().clone().ptr())
 {}
 
 

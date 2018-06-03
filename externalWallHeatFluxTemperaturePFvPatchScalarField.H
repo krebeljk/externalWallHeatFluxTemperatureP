@@ -96,6 +96,7 @@ SourceFiles
 
 #include "mixedFvPatchFields.H"
 #include "temperatureCoupledBase.H"
+#include "DataEntry.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -156,6 +157,9 @@ private:
 
         //- Conductivity of layers
         scalarList kappaLayers_;
+
+        //- Heat transfer coefficient in pressure/ [W/m2K]
+        autoPtr<DataEntry<scalar> > hp_;
 
 
 public:
