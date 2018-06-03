@@ -371,6 +371,7 @@ void Foam::externalWallHeatFluxTemperaturePFvPatchScalarField::write
             Ta_.writeEntry("Ta", os);
             thicknessLayers_.writeEntry("thicknessLayers", os);
             kappaLayers_.writeEntry("kappaLayers", os);
+            hp_->writeData(os);
             break;
         }
         default:
