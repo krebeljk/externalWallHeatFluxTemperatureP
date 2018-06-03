@@ -23,7 +23,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "externalWallHeatFluxTemperatureFvPatchScalarField.H"
+#include "externalWallHeatFluxTemperaturePFvPatchScalarField.H"
 #include "addToRunTimeSelectionTable.H"
 #include "fvPatchFieldMapper.H"
 #include "volFields.H"
@@ -37,7 +37,7 @@ namespace Foam
     const char*
     NamedEnum
     <
-        externalWallHeatFluxTemperatureFvPatchScalarField::operationMode,
+        externalWallHeatFluxTemperaturePFvPatchScalarField::operationMode,
         3
     >::names[] =
     {
@@ -50,15 +50,15 @@ namespace Foam
 
 const Foam::NamedEnum
 <
-    Foam::externalWallHeatFluxTemperatureFvPatchScalarField::operationMode,
+    Foam::externalWallHeatFluxTemperaturePFvPatchScalarField::operationMode,
     3
-> Foam::externalWallHeatFluxTemperatureFvPatchScalarField::operationModeNames;
+> Foam::externalWallHeatFluxTemperaturePFvPatchScalarField::operationModeNames;
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::externalWallHeatFluxTemperatureFvPatchScalarField::
-externalWallHeatFluxTemperatureFvPatchScalarField
+Foam::externalWallHeatFluxTemperaturePFvPatchScalarField::
+externalWallHeatFluxTemperaturePFvPatchScalarField
 (
     const fvPatch& p,
     const DimensionedField<scalar, volMesh>& iF
@@ -82,10 +82,10 @@ externalWallHeatFluxTemperatureFvPatchScalarField
 }
 
 
-Foam::externalWallHeatFluxTemperatureFvPatchScalarField::
-externalWallHeatFluxTemperatureFvPatchScalarField
+Foam::externalWallHeatFluxTemperaturePFvPatchScalarField::
+externalWallHeatFluxTemperaturePFvPatchScalarField
 (
-    const externalWallHeatFluxTemperatureFvPatchScalarField& ptf,
+    const externalWallHeatFluxTemperaturePFvPatchScalarField& ptf,
     const fvPatch& p,
     const DimensionedField<scalar, volMesh>& iF,
     const fvPatchFieldMapper& mapper
@@ -105,8 +105,8 @@ externalWallHeatFluxTemperatureFvPatchScalarField
 {}
 
 
-Foam::externalWallHeatFluxTemperatureFvPatchScalarField::
-externalWallHeatFluxTemperatureFvPatchScalarField
+Foam::externalWallHeatFluxTemperaturePFvPatchScalarField::
+externalWallHeatFluxTemperaturePFvPatchScalarField
 (
     const fvPatch& p,
     const DimensionedField<scalar, volMesh>& iF,
@@ -145,8 +145,8 @@ externalWallHeatFluxTemperatureFvPatchScalarField
     {
         FatalErrorIn
         (
-            "externalWallHeatFluxTemperatureFvPatchScalarField::"
-            "externalWallHeatFluxTemperatureFvPatchScalarField\n"
+            "externalWallHeatFluxTemperaturePFvPatchScalarField::"
+            "externalWallHeatFluxTemperaturePFvPatchScalarField\n"
             "(\n"
             "    const fvPatch& p,\n"
             "    const DimensionedField<scalar, volMesh>& iF,\n"
@@ -184,10 +184,10 @@ externalWallHeatFluxTemperatureFvPatchScalarField
 }
 
 
-Foam::externalWallHeatFluxTemperatureFvPatchScalarField::
-externalWallHeatFluxTemperatureFvPatchScalarField
+Foam::externalWallHeatFluxTemperaturePFvPatchScalarField::
+externalWallHeatFluxTemperaturePFvPatchScalarField
 (
-    const externalWallHeatFluxTemperatureFvPatchScalarField& tppsf
+    const externalWallHeatFluxTemperaturePFvPatchScalarField& tppsf
 )
 :
     mixedFvPatchScalarField(tppsf),
@@ -204,10 +204,10 @@ externalWallHeatFluxTemperatureFvPatchScalarField
 {}
 
 
-Foam::externalWallHeatFluxTemperatureFvPatchScalarField::
-externalWallHeatFluxTemperatureFvPatchScalarField
+Foam::externalWallHeatFluxTemperaturePFvPatchScalarField::
+externalWallHeatFluxTemperaturePFvPatchScalarField
 (
-    const externalWallHeatFluxTemperatureFvPatchScalarField& tppsf,
+    const externalWallHeatFluxTemperaturePFvPatchScalarField& tppsf,
     const DimensionedField<scalar, volMesh>& iF
 )
 :
@@ -227,7 +227,7 @@ externalWallHeatFluxTemperatureFvPatchScalarField
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void Foam::externalWallHeatFluxTemperatureFvPatchScalarField::autoMap
+void Foam::externalWallHeatFluxTemperaturePFvPatchScalarField::autoMap
 (
     const fvPatchFieldMapper& m
 )
@@ -239,7 +239,7 @@ void Foam::externalWallHeatFluxTemperatureFvPatchScalarField::autoMap
 }
 
 
-void Foam::externalWallHeatFluxTemperatureFvPatchScalarField::rmap
+void Foam::externalWallHeatFluxTemperaturePFvPatchScalarField::rmap
 (
     const fvPatchScalarField& ptf,
     const labelList& addr
@@ -247,8 +247,8 @@ void Foam::externalWallHeatFluxTemperatureFvPatchScalarField::rmap
 {
     mixedFvPatchScalarField::rmap(ptf, addr);
 
-    const externalWallHeatFluxTemperatureFvPatchScalarField& tiptf =
-        refCast<const externalWallHeatFluxTemperatureFvPatchScalarField>(ptf);
+    const externalWallHeatFluxTemperaturePFvPatchScalarField& tiptf =
+        refCast<const externalWallHeatFluxTemperaturePFvPatchScalarField>(ptf);
 
     q_.rmap(tiptf.q_, addr);
     h_.rmap(tiptf.h_, addr);
@@ -256,7 +256,7 @@ void Foam::externalWallHeatFluxTemperatureFvPatchScalarField::rmap
 }
 
 
-void Foam::externalWallHeatFluxTemperatureFvPatchScalarField::updateCoeffs()
+void Foam::externalWallHeatFluxTemperaturePFvPatchScalarField::updateCoeffs()
 {
     if (updated())
     {
@@ -313,7 +313,7 @@ void Foam::externalWallHeatFluxTemperatureFvPatchScalarField::updateCoeffs()
         {
             FatalErrorIn
             (
-                "externalWallHeatFluxTemperatureFvPatchScalarField"
+                "externalWallHeatFluxTemperaturePFvPatchScalarField"
                 "::updateCoeffs()"
             )   << "Illegal heat flux mode " << operationModeNames[mode_]
                 << exit(FatalError);
@@ -339,7 +339,7 @@ void Foam::externalWallHeatFluxTemperatureFvPatchScalarField::updateCoeffs()
 }
 
 
-void Foam::externalWallHeatFluxTemperatureFvPatchScalarField::write
+void Foam::externalWallHeatFluxTemperaturePFvPatchScalarField::write
 (
     Ostream& os
 ) const
@@ -372,7 +372,7 @@ void Foam::externalWallHeatFluxTemperatureFvPatchScalarField::write
         {
             FatalErrorIn
             (
-                "void externalWallHeatFluxTemperatureFvPatchScalarField::write"
+                "void externalWallHeatFluxTemperaturePFvPatchScalarField::write"
                 "("
                     "Ostream& os"
                 ") const"
@@ -390,7 +390,7 @@ namespace Foam
     makePatchTypeField
     (
         fvPatchScalarField,
-        externalWallHeatFluxTemperatureFvPatchScalarField
+        externalWallHeatFluxTemperaturePFvPatchScalarField
     );
 }
 
