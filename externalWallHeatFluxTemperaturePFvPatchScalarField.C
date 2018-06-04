@@ -270,6 +270,8 @@ void Foam::externalWallHeatFluxTemperaturePFvPatchScalarField::updateCoeffs()
 
     const scalarField Tp(*this);
     scalarField hp(patch().size(), 0.0);
+    scalarField pressure(patch().size(), 0.0);
+    pressure = patch().lookupPatchField<volScalarField, scalar>("p");
 
     scalarField Qr(Tp.size(), 0.0);
     if (QrName_ != "none")
