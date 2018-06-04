@@ -310,10 +310,10 @@ void Foam::externalWallHeatFluxTemperaturePFvPatchScalarField::updateCoeffs()
 
             forAll (htcpr, faceI)
             {
-                htcpr[faceI] = hpr_->value(0.0);
+                htcpr[faceI] = hpr_->value(pressure[faceI]);
             }
 
-            hp = 1.0/(1.0/h_ + totalSolidRes);
+            hp = 1.0/(1.0/htcpr + totalSolidRes);
 
             Qr /= Tp;
             refGrad() = 0.0;
