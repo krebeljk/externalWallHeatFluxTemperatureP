@@ -272,6 +272,7 @@ void Foam::externalWallHeatFluxTemperaturePFvPatchScalarField::updateCoeffs()
     scalarField hp(patch().size(), 0.0);
     scalarField pressure(patch().size(), 0.0);
     pressure = patch().lookupPatchField<volScalarField, scalar>("p");
+    scalarField htcpr(patch().size(), 0.0);
 
     scalarField Qr(Tp.size(), 0.0);
     if (QrName_ != "none")
@@ -306,6 +307,12 @@ void Foam::externalWallHeatFluxTemperaturePFvPatchScalarField::updateCoeffs()
                     }
                 }
             }
+
+            forAll (htcpr, faceI)
+            {
+                htcpr[faceI] = hpr_->value(0.0);
+            }
+
             hp = 1.0/(1.0/h_ + totalSolidRes);
 
             Qr /= Tp;
