@@ -75,7 +75,7 @@ externalWallHeatFluxTemperaturePFvPatchScalarField
     QrName_("undefined-Qr"),
     thicknessLayers_(),
     kappaLayers_(),
-    hp_()
+    hpr_()
 {
     refValue() = 0.0;
     refGrad() = 0.0;
@@ -103,7 +103,7 @@ externalWallHeatFluxTemperaturePFvPatchScalarField
     QrName_(ptf.QrName_),
     thicknessLayers_(ptf.thicknessLayers_),
     kappaLayers_(ptf.kappaLayers_),
-    hp_(ptf.hp_().clone().ptr())
+    hpr_(ptf.hpr_().clone().ptr())
 {}
 
 
@@ -126,7 +126,7 @@ externalWallHeatFluxTemperaturePFvPatchScalarField
     QrName_(dict.lookupOrDefault<word>("Qr", "none")),
     thicknessLayers_(),
     kappaLayers_(),
-    hp_(DataEntry<scalar>::New("hp", dict))
+    hpr_(DataEntry<scalar>::New("hpr", dict))
 {
     if (dict.found("q") && !dict.found("h") && !dict.found("Ta"))
     {
@@ -204,7 +204,7 @@ externalWallHeatFluxTemperaturePFvPatchScalarField
     QrName_(tppsf.QrName_),
     thicknessLayers_(tppsf.thicknessLayers_),
     kappaLayers_(tppsf.kappaLayers_),
-    hp_(tppsf.hp_().clone().ptr())
+    hpr_(tppsf.hpr_().clone().ptr())
 {}
 
 
@@ -226,7 +226,7 @@ externalWallHeatFluxTemperaturePFvPatchScalarField
     QrName_(tppsf.QrName_),
     thicknessLayers_(tppsf.thicknessLayers_),
     kappaLayers_(tppsf.kappaLayers_),
-    hp_(tppsf.hp_().clone().ptr())
+    hpr_(tppsf.hpr_().clone().ptr())
 {}
 
 
@@ -371,7 +371,7 @@ void Foam::externalWallHeatFluxTemperaturePFvPatchScalarField::write
             Ta_.writeEntry("Ta", os);
             thicknessLayers_.writeEntry("thicknessLayers", os);
             kappaLayers_.writeEntry("kappaLayers", os);
-            hp_->writeData(os);
+            hpr_->writeData(os);
             break;
         }
         default:

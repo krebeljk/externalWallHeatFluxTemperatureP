@@ -159,7 +159,7 @@ private:
         scalarList kappaLayers_;
 
         //- Heat transfer coefficient in pressure/ [W/m2K]
-        autoPtr<DataEntry<scalar> > hp_;
+        autoPtr<DataEntry<scalar> > hpr_;
 
 
 public:
