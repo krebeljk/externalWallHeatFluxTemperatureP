@@ -27,11 +27,11 @@ boundaryField
     {
         type            externalWallHeatFluxTemperatureP;
         kappa           lookup; //Method for reading thermal conductivity.
-        //q               uniform 1000; //ali q, ali Ta in h
+        //q               uniform 1000; //q or Ta and h
         Ta              uniform 50.0;// sink temperature
         h               uniform 1000.0;//not really used anymore
         hpr             table (
-                        (0 1019.52) // [MPa, W/m2K]
+                        (0 1019.52) //p, HTC [Pa, W/m2K]
                         (1e8 5383.56)
                         );
         value           uniform 220.0; //initial temperature [K]
@@ -49,11 +49,11 @@ boundaryField
     {
         type            externalWallHeatFluxTemperatureP;
         kappa           fluidThermo;  // fluidThermo, solidThermo or lookup//Method for reading thermal conductivity.
-        //q               uniform 1000; //ali q, ali Ta in h
+        //q               uniform 1000; //q or Ta and h
         Ta              uniform 50.0;// sink temperature
         h               uniform 1000.0;//not really used anymore
         hpr             table (
-                        (0 1019.52) // [MPa, W/m2K]
+                        (0 1019.52) //p, HTC [Pa, W/m2K]
                         (1e8 5383.56)
                         );
         value           uniform 220.0; //initial temperature [K]
