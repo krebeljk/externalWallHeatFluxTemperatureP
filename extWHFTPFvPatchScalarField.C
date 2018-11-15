@@ -70,9 +70,6 @@ extWHFTPFvPatchScalarField
     q_(p.size(), 0.0),
     h_(p.size(), 0.0),
     Ta_(p.size(), 0.0),
-    QrPrevious_(p.size()),
-    QrRelaxation_(1),
-    QrName_("undefined-Qr"),
     thicknessLayers_(),
     kappaLayers_(),
     hpr_()
@@ -98,9 +95,6 @@ extWHFTPFvPatchScalarField
     q_(ptf.q_, mapper),
     h_(ptf.h_, mapper),
     Ta_(ptf.Ta_, mapper),
-    QrPrevious_(ptf.QrPrevious_, mapper),
-    QrRelaxation_(ptf.QrRelaxation_),
-    QrName_(ptf.QrName_),
     thicknessLayers_(ptf.thicknessLayers_),
     kappaLayers_(ptf.kappaLayers_),
     hpr_(ptf.hpr_().clone().ptr())
@@ -121,9 +115,6 @@ extWHFTPFvPatchScalarField
     q_(p.size(), 0.0),
     h_(p.size(), 0.0),
     Ta_(p.size(), 0.0),
-    QrPrevious_(p.size(), 0.0),
-    QrRelaxation_(dict.lookupOrDefault<scalar>("relaxation", 1)),
-    QrName_(dict.lookupOrDefault<word>("Qr", "none")),
     thicknessLayers_(),
     kappaLayers_(),
     hpr_(DataEntry<scalar>::New("hpr", dict))
@@ -165,11 +156,6 @@ extWHFTPFvPatchScalarField
 
     fvPatchScalarField::operator=(scalarField("value", dict, p.size()));
 
-    if (dict.found("QrPrevious"))
-    {
-        QrPrevious_ = scalarField("QrPrevious", dict, p.size());
-    }
-
     if (dict.found("refValue"))
     {
         // Full restart
@@ -199,9 +185,6 @@ extWHFTPFvPatchScalarField
     q_(tppsf.q_),
     h_(tppsf.h_),
     Ta_(tppsf.Ta_),
-    QrPrevious_(tppsf.QrPrevious_),
-    QrRelaxation_(tppsf.QrRelaxation_),
-    QrName_(tppsf.QrName_),
     thicknessLayers_(tppsf.thicknessLayers_),
     kappaLayers_(tppsf.kappaLayers_),
     hpr_(tppsf.hpr_().clone().ptr())
@@ -221,9 +204,6 @@ extWHFTPFvPatchScalarField
     q_(tppsf.q_),
     h_(tppsf.h_),
     Ta_(tppsf.Ta_),
-    QrPrevious_(tppsf.QrPrevious_),
-    QrRelaxation_(tppsf.QrRelaxation_),
-    QrName_(tppsf.QrName_),
     thicknessLayers_(tppsf.thicknessLayers_),
     kappaLayers_(tppsf.kappaLayers_),
     hpr_(tppsf.hpr_().clone().ptr())
@@ -274,20 +254,11 @@ void Foam::extWHFTPFvPatchScalarField::updateCoeffs()
     pressure = patch().lookupPatchField<volScalarField, scalar>("p");
     scalarField htcpr(patch().size(), 0.0);
 
-    scalarField Qr(Tp.size(), 0.0);
-    if (QrName_ != "none")
-    {
-        Qr = patch().lookupPatchField<volScalarField, scalar>(QrName_);
-
-        Qr = QrRelaxation_*Qr + (1.0 - QrRelaxation_)*QrPrevious_;
-        QrPrevious_ = Qr;
-    }
-
     switch (mode_)
     {
         case fixedHeatFlux:
         {
-            refGrad() = (q_ + Qr)/kappa(Tp);
+            refGrad() = (q_)/kappa(Tp);
             refValue() = 0.0;
             valueFraction() = 0.0;
 
@@ -315,11 +286,10 @@ void Foam::extWHFTPFvPatchScalarField::updateCoeffs()
 
             hp = 1.0/(1.0/htcpr + totalSolidRes);
 
-            Qr /= Tp;
             refGrad() = 0.0;
-            refValue() = hp*Ta_/(hp - Qr);
+            refValue() = hp*Ta_/hp;
             valueFraction() =
-                (hp - Qr)/((hp - Qr) + kappa(Tp)*patch().deltaCoeffs());
+                hp/(hp + kappa(Tp)*patch().deltaCoeffs());
 
             break;
         }
@@ -360,11 +330,6 @@ void Foam::extWHFTPFvPatchScalarField::write
 {
     mixedFvPatchScalarField::write(os);
     temperatureCoupledBase::write(os);
-
-    QrPrevious_.writeEntry("QrPrevious", os);
-    os.writeKeyword("Qr")<< QrName_ << token::END_STATEMENT << nl;
-    os.writeKeyword("relaxation")<< QrRelaxation_
-        << token::END_STATEMENT << nl;
 
     switch (mode_)
     {
