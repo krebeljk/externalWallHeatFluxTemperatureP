@@ -22,7 +22,7 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::externalWallHeatFluxTemperaturePFvPatchScalarField
+    Foam::extWHFTPFvPatchScalarField
 
 Group
     grpThermoBoundaryConditions grpWallBoundaryConditions
@@ -68,7 +68,7 @@ Description
     \verbatim
     myPatch
     {
-        type            externalWallHeatFluxTemperatureP;
+        type            extWHFTP;
         kappa           fluidThermo;
         q               uniform 1000;
         Ta              uniform 300.0;
@@ -87,7 +87,7 @@ Note
   - kappa entries can be: fluidThermo, solidThermo or lookup
 
 SourceFiles
-    externalWallHeatFluxTemperaturePFvPatchScalarField.C
+    extWHFTPFvPatchScalarField.C
 
 \*---------------------------------------------------------------------------*/
 
@@ -104,10 +104,10 @@ namespace Foam
 {
 
 /*---------------------------------------------------------------------------*\
-      Class externalWallHeatFluxTemperaturePFvPatchScalarField Declaration
+      Class extWHFTPFvPatchScalarField Declaration
 \*---------------------------------------------------------------------------*/
 
-class externalWallHeatFluxTemperaturePFvPatchScalarField
+class extWHFTPFvPatchScalarField
 :
     public mixedFvPatchScalarField,
     public temperatureCoupledBase
@@ -165,20 +165,20 @@ private:
 public:
 
     //- Runtime type information
-    TypeName("externalWallHeatFluxTemperatureP");
+    TypeName("extWHFTP");
 
 
     // Constructors
 
         //- Construct from patch and internal field
-        externalWallHeatFluxTemperaturePFvPatchScalarField
+        extWHFTPFvPatchScalarField
         (
             const fvPatch&,
             const DimensionedField<scalar, volMesh>&
         );
 
         //- Construct from patch, internal field and dictionary
-        externalWallHeatFluxTemperaturePFvPatchScalarField
+        extWHFTPFvPatchScalarField
         (
             const fvPatch&,
             const DimensionedField<scalar, volMesh>&,
@@ -186,20 +186,20 @@ public:
         );
 
         //- Construct by mapping given
-        // externalWallHeatFluxTemperaturePFvPatchScalarField
+        // extWHFTPFvPatchScalarField
         // onto a new patch
-        externalWallHeatFluxTemperaturePFvPatchScalarField
+        extWHFTPFvPatchScalarField
         (
-            const externalWallHeatFluxTemperaturePFvPatchScalarField&,
+            const extWHFTPFvPatchScalarField&,
             const fvPatch&,
             const DimensionedField<scalar, volMesh>&,
             const fvPatchFieldMapper&
         );
 
         //- Construct as copy
-        externalWallHeatFluxTemperaturePFvPatchScalarField
+        extWHFTPFvPatchScalarField
         (
-            const externalWallHeatFluxTemperaturePFvPatchScalarField&
+            const extWHFTPFvPatchScalarField&
         );
 
         //- Construct and return a clone
@@ -207,14 +207,14 @@ public:
         {
             return tmp<fvPatchScalarField>
             (
-                new externalWallHeatFluxTemperaturePFvPatchScalarField(*this)
+                new extWHFTPFvPatchScalarField(*this)
             );
         }
 
         //- Construct as copy setting internal field reference
-        externalWallHeatFluxTemperaturePFvPatchScalarField
+        extWHFTPFvPatchScalarField
         (
-            const externalWallHeatFluxTemperaturePFvPatchScalarField&,
+            const extWHFTPFvPatchScalarField&,
             const DimensionedField<scalar, volMesh>&
         );
 
@@ -226,7 +226,7 @@ public:
         {
             return tmp<fvPatchScalarField>
             (
-                new externalWallHeatFluxTemperaturePFvPatchScalarField(*this, iF)
+                new extWHFTPFvPatchScalarField(*this, iF)
             );
         }
 
