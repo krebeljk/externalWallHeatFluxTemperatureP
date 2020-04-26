@@ -25,7 +25,7 @@ boundaryField
 {
     wallIn
     {
-        type            externalWallHeatFluxTemperatureP;
+        type            extWHFTP;
         kappa           lookup; //Method for reading thermal conductivity.
         //q               uniform 1000; //q or Ta and h
         Ta              uniform 50.0;// sink temperature
@@ -36,8 +36,6 @@ boundaryField
                         );
         value           uniform 220.0; //initial temperature [K]
         kappaName       mojKappaOut; // Custom field for thermal conductivity
-        Qr              none;
-        relaxation      1;
     }
 }
 ```
@@ -47,7 +45,7 @@ boundaryField
 {
     wallIn
     {
-        type            externalWallHeatFluxTemperatureP;
+        type            extWHFTP;
         kappa           fluidThermo;  // fluidThermo, solidThermo or lookup//Method for reading thermal conductivity.
         //q               uniform 1000; //q or Ta and h
         Ta              uniform 50.0;// sink temperature
@@ -58,8 +56,6 @@ boundaryField
                         );
         value           uniform 220.0; //initial temperature [K]
         kappaName       none; // Custom field for thermal conductivity
-        Qr              none;
-        relaxation      1;
     }
 }
 ```
