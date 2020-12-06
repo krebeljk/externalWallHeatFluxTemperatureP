@@ -1,5 +1,7 @@
 # externalWallHeatFluxTemperatureP
 
+[![DOI](https://zenodo.org/badge/137615561.svg)](https://zenodo.org/badge/latestdoi/137615561)
+
 This is an OpenFOAM-3.0.1 boundary condition.
 
 It is a modification of the 
